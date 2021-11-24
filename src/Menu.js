@@ -1,27 +1,52 @@
 import React from "react";
 import Search from "./Search";
+import PanelAdd from "./PanelAdd";
 import './Menu.css';
 
-function Menu(props) {
+class Menu extends React.Component {
 
-    return(
-        <div className="container">
-      <div className="subcontainer">
-        <div className="logo">
-              {props.tittle}
-        </div>
+    // eslint-disable-next-line no-useless-constructor
+    constructor(props) {
+      super(props);
 
-        <div className="search">
-            <Search />
-        </div>
+      this.state = {newItemPanel: false};
+      this.add = this.add.bind(this);
+    }
 
-        <div className="actions">
-            <button className="button btn-blue"> Nuevo libro</button>
+    add(){
+      // eslint-disable-next-line react/no-direct-mutation-state
+      this.state = {newItemPanel: true};
+      console.log("New Book");
+    }
+
+
+      render() {
+      return(
+          <div className="container">
+        <div className="subcontainer">
+          <div className="logo">
+                {this.props.tittle}
+          </div>
+
+          <div className="search">
+              <Search />
+          </div>
+
+          <div className="actions">
+              <button onClick={this.add} className="button btn-blue">Nuevo libro</button>
+          </div>
         </div>
+        {
+          (this.state.newItemPanel)?
+          <PanelAdd />
+          :
+          ""
+        }
+
       </div>
-    </div>
-    );
+      );
 
+      }
 }
 
 export default Menu;
